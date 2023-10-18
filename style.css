@@ -1,0 +1,36 @@
+*{
+font-family:'poppins',sans-serif;
+box-sizing:border-box;
+background-color:#9ACD32;
+}
+.question{
+background-color:#FEBE10;
+width:400px;
+position:relative;
+left:500px; 
+padding-top:10px;
+padding-bottom:10px;
+word-spacing:2px;
+font-weight:100;
+text-align:center;
+}
+.ans{
+	width:300px;
+    height:50px;    
+   display:block;
+    position:relative;
+    left:500px;
+    font-weight:500;    
+    margin:10px;
+    text-align:left;
+    padding-left:2%; /* To align answer text */ 
+    background-color:#FEBE10;
+}
+.btns{
+	height:30px;  
+	position:relative;
+	left:620px;
+	cursor:pointer;
+	margin:20px;
+	background-color:#FEBE10;	
+}
