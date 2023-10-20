@@ -1,0 +1,23 @@
+*{
+        	box-sizing:border-box;
+            font-family:'Poppins Sans-serif';
+            margin:0px;
+            padding:0px;
+	font-size:30px;
+           
+        }
+        .scoreCard{
+        	width:400px;
+            height:350px;
+            border:2px solid purple;
+            position:relative;
+            left:30%;
+            top:200px;
+            text-align:center;
+            border-top-left-radius: 25px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+	padding:50px;
+	background-image: linear-gradient(green , yellow);	
+        }
