@@ -22,7 +22,7 @@ $(document).ready(function () {
         else 
         {
           $(".question").html('Your score is: ');
-          $("#next-btn").html('Back to Category');
+          $("#next-btn").html('Check Your Score');
         }
     },
   });
@@ -30,10 +30,14 @@ $(document).ready(function () {
 
 function validateAns(ans, incorrectResponse) { 
   var isCorrect = ans.getAttribute("data-correctans");
+  var score = $('#score').val();
+
   if (isCorrect === '0') {
     ans.style.backgroundColor = "red";
     $('.explanation').html(incorrectResponse);
   } else {
+    score = parseInt(score) + 1;
+    $('#score').val(score);
     $('.explanation').html('Correct!!!');
   }
 
@@ -54,7 +58,7 @@ function getNext() {
   }
   else
   {
-    location.href = "choose-category.html";
+    location.href = "scoreCard.html";
   }
   
 }
