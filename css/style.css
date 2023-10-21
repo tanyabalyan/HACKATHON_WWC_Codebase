@@ -193,13 +193,12 @@ section {
 }
 
 .card:hover {
+  border: 2px solid var(--tertiaryColor);
   box-shadow: -3px 16px 28px 3px rgba(0, 0, 0, 0.05);
-  transform: scale(1.02) rotateZ(0deg); /* Reset the rotation */
   transition: all 300ms ease-in-out;
 }
 
-.card-hover .img-grid,
-.img-grid:hover {
+.card:hover .img-grid {
   transform: rotateZ(-8deg) scale(1.05, 1.05);
   transition: all 300ms ease-in-out;
 }
