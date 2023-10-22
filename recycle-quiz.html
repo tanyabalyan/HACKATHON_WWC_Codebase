@@ -10,6 +10,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
     <!-- Script -->
+    <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/recycle-script.js" async></script>
 
     <title>EcoQuiz - categories</title>
@@ -33,16 +34,16 @@
         <h1 class="text-centered quiz">Recycling</h1>
         <h2 id="question" class="text-centered">Question goes here</h2>
         <div id="choices" class="choices grid grid-2-columns">
-          <button class="choice">Choice 1</button>
-          <button class="choice">Choice 2</button>
-          <button class="choice">Choice 3</button>
-          <button class="choice">Choice 4</button>
         </div>
 
         <p id="result" class="result-correct result-incorrect"></p>
         <button id="nextButton" style="display: none" class="next">Next question</button>
       </div>
     </main>
+    <input type="hidden" id="category" value="" />
+    <input type="hidden" id="correctAnswer" value="" />
+    <input type="hidden" id="currentNo" value="" />
+    <input type="hidden" id="score" value="0" />
 
     <footer>
       <div class="container">
