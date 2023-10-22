@@ -1,32 +1,4 @@
-const questions = [
-  {
-    question: "What should you do with a glass bottle when you're done with it to help the environment?",
-    choices: ["A) Throw it in the river", "B) Bury it in the backyard", "C) Recycle it", "D) Keep it as a toy"],
-    correct: 2,
-    wrong:
-      "Oops, that's not quite right. The correct answer is C) Recycle it. Recycling glass bottles helps save energy and resources. Keep learning, and you'll get it next time!",
-  },
-  {
-    question: "Which of the following items can be recycled?",
-    choices: ["A) Banana peels", "B) Glass jars", "C) Old shoes", "D) Dirty tissues"],
-    correct: 1,
-    wrong:
-      "Nice try, but the correct answer is B) Glass jars. They can be recycled to make new glass products. Keep going, and you'll get it next time!",
-  },
-  {
-    question: "What is the purpose of recycling paper and cardboard products?",
-    choices: [
-      "A) To make the recycling bin look full",
-      "B) To save trees and reduce waste",
-      "C) To create colorful artwork",
-      "D) To use it as wrapping paper",
-    ],
-    correct: 1,
-    wrong:
-      "That's not it, but don't give up! The correct answer is B) To save trees and reduce waste. Recycling paper and cardboard helps protect our forests. Keep learning and try again!",
-  },
-];
-
+let questions = '';
 let currentQuestion = 0;
 let score = 0;
 
@@ -36,15 +8,37 @@ const resultElement = document.getElementById("result");
 const nextButton = document.getElementById("nextButton");
 
 function loadQuestion() {
-  const q = questions[currentQuestion];
-  questionElement.textContent = q.question;
-  choicesElement.innerHTML = "";
-  for (let i = 0; i < q.choices.length; i++) {
-    const choice = document.createElement("button");
-    choice.textContent = q.choices[i];
-    choice.addEventListener("click", () => checkAnswer(i));
-    choicesElement.appendChild(choice);
-  }
+  const uri = window.location.search.replace("?", "");
+  const category_id = (uri.split('&')[0]).split('=')[1];
+  const no = (uri.split('&')[1]).split('=')[1];
+  $('#category').val(category_id);
+  $('#currentNo').val(no);
+
+  $.ajax({
+    type: "GET", 
+    url: "app/question.php", 
+    data: uri, 
+    success: function (response) { //console.log(response);
+        if (response !== '')
+        {
+          questions = JSON.parse(response);
+          const q = questions[currentQuestion];
+          $('.quiz').html(q.category);
+          questionElement.textContent = q.question;
+          choicesElement.innerHTML = "";
+          for (let i = 0; i < q.choices.length; i++) {
+            const choice = document.createElement("button");
+            choice.textContent = q.choices[i];
+            choice.addEventListener("click", () => checkAnswer(i));
+            choicesElement.appendChild(choice);
+          }
+        }
+        else 
+        {     
+          $("#nextButton").html('Check Your Score');
+        }
+    },
+  });
 }
 
 function showNextButton() {
@@ -100,14 +94,26 @@ function continueQuiz() {
   resultElement.textContent = ""; // Clear the result message
   resultElement.style.backgroundColor = ""; // Remove the background color
   resultElement.style.border = ""; // Remove the border color
-
+  const category_id = $('#category').val();
   currentQuestion++;
   if (currentQuestion < questions.length) {
     loadQuestion();
   } else {
-    questionElement.textContent = `Quiz completed. You got ${score} out of ${questions.length} questions correct.`;
-    choicesElement.innerHTML = "";
+    $.ajax({
+      type: "POST", 
+      url: "app/save_score.php", 
+      data: "cat=" + category_id + "&score=" + score, 
+      success: function (response) {
+        questionElement.textContent = `Quiz completed. You got ${score} out of ${questions.length} questions correct.`;
+        choicesElement.innerHTML = "";
+      },
+    });
+    
   }
+}
+
+function chooseCategory(cat) {
+  location.href = "recycle-quiz.html?cat=" + cat + "&no=1";
 }
 
 // Add a click event listener to the "Next" button
